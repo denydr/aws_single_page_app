@@ -1,16 +1,52 @@
-variable "cidr_block" {
-  description = "The CIDR block for the VPC"
+variable "aws_region" {
+  description = "The AWS region to deploy to"
+  default     = "us-east-1"
+}
+
+variable "project_name" {
+  description = "The name of the project"
   type        = string
+  default     = "aws-spa"
 }
 
 variable "environment" {
-  description = "The environment (e.g., dev, staging, prod)"
+  description = "The deployment environment (e.g., dev, staging, prod)"
+  type        = string
   default     = "dev"
 }
 
-variable "cloudfront_price_class" {
-  description = "The price class for CloudFront distribution"
-  default     = "PriceClass_100"
+variable "create_route53_zone" {
+  description = "Whether to create a new Route53 zone"
+  type        = bool
+  default     = false
+}
+
+variable "existing_zone_id" {
+  description = "The ID of an existing Route53 zone to use (if not creating a new one)"
+  type        = string
+  default     = ""
+}
+
+variable "domain_name" {
+  description = "The domain name for the website"
+  type        = string
+  default     = "example-aws-spa.com"
+}
+
+variable "vpc_cidr" {
+  description = "The CIDR block for the VPC"
+  type        = string
+  default     = "10.0.0.0/16"
+}
+
+variable "asg_min_size" {
+  description = "Minimum size of the Auto Scaling Group"
+  default     = 2
+}
+
+variable "asg_max_size" {
+  description = "Maximum size of the Auto Scaling Group"
+  default     = 10
 }
 
 variable "ec2_instance_type" {
@@ -18,13 +54,14 @@ variable "ec2_instance_type" {
   default     = "t2.micro"
 }
 
-variable "region" {
-  description = "The AWS region to deploy to"
-  type        = string
+variable "use_https" {
+  description = "Whether to use HTTPS (requires a valid ACM certificate)"
+  type        = bool
+  default     = false
 }
 
-variable "availability_zones_count" {
-  description = "The number of AZs to use in the region"
-  type        = number
-  default     = 2
+variable "cloudfront_price_class" {
+  type        = string
+  description = "The price class for CloudFront distribution"
+  default     = "PriceClass_100"
 }
