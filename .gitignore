@@ -38,3 +38,6 @@ terraform.rc
 .DS_Store
 terraform/.DS_Store
 /terraform/.terraform/
+
+# Ignore .idea resources
+.idea/aws_single_page_app.iml

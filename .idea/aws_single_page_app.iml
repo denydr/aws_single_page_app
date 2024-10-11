@@ -3,6 +3,9 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/terraform/.terraform" />
+      <excludeFolder url="file://$MODULE_DIR$/terraform/.terraform/modules" />
+      <excludeFolder url="file://$MODULE_DIR$/terraform/.terraform/providers" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.12 (aws_single_page_app)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
