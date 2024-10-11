@@ -35,7 +35,7 @@ graph TD
 
 This project structure organizes the code and resources as follows:  
 
-- `venv/`: Python virtual environment (if used).  
+- `.venv/`: Python virtual environment (if used).  
 - `scripts/`: Contains shell scripts for deployment, updates, and teardown.  
 - `terraform/`: Houses all Terraform configurations, including modularized components.  
 - `website/`: Contains the static website files.  
