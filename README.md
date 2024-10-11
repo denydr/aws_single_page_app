@@ -168,3 +168,81 @@ To destroy the created resources:
 ```shell
 ./scripts/destroy.sh
 ```  
+
+## Architecture
+
+This solution uses the following AWS services to create a robust, scalable, and highly available web hosting infrastructure:
+
+- **Amazon S3**: Used for static website hosting. It stores and serves static content like HTML, CSS, JavaScript, and images.
+
+- **Amazon CloudFront**: A content delivery network (CDN) that distributes content globally, reducing latency and improving performance for users worldwide.
+
+- **Amazon Route 53**: Manages DNS routing, allowing users to access the website via a custom domain name.
+
+- **Amazon VPC**: Provides a logically isolated section of the AWS Cloud where you can launch AWS resources in a virtual network that you define.
+
+- **AWS Certificate Manager (ACM)**: Provisions, manages, and deploys SSL/TLS certificates for use with AWS services when HTTPS is enabled.
+
+### Infrastructure Diagram
+
+```mermaid
+graph TD
+    A[User] -->|DNS Request| B(Route 53)
+    B -->|Routes to| C{CloudFront}
+    C -->|Static Content| D[S3 Bucket]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#85C1E9,stroke:#333,stroke-width:2px
+    style C fill:#82E0AA,stroke:#333,stroke-width:2px
+    style D fill:#F8C471,stroke:#333,stroke-width:2px
+```      
+
+### Project Structure  
+
+aws_single_page_app/  
+│  
+├── scripts/  
+│   ├── destroy.sh  
+│   ├── update_website.sh  
+│   └── user_data.sh  
+│  
+├── terraform/  
+│   ├── modules/  
+│   │   ├── cloudfront/ 
+│   │   ├── route53/  
+│   │   └── s3_website/  
+│   │   └── vpc/  
+│   ├── main.tf  
+│   ├── outputs.tf  
+│   └── variables.tf  
+│  
+├── venv/  
+│  
+├── website/  
+│   ├── css/  
+│   │   └── styles.css  
+│   ├── js/  
+│   │   └── script.js  
+│   ├── error.html  
+│   └── index.html  
+│  
+├── .gitignore  
+└── README.md  
+
+This project structure organizes the code and resources as follows:  
+
+- `scripts/`: Contains shell scripts for deployment, updates, and teardown.  
+- `terraform/`: Houses all Terraform configurations, including modularized components.  
+- `venv/`: Python virtual environment (if used).  
+- `website/`: Contains the static website files.  
+- `.gitignore`: Specifies intentionally untracked files to ignore.  
+- `README.md`: Project documentation and instructions.  
+
+The modular approach in the Terraform configuration allows for better organization 
+and potential reuse of infrastructure components.  
+
+This expanded Architecture section provides more detail about each AWS 
+service used, includes a mermaid diagram visualizing the infrastructure, 
+and adds a project structure section to give users a clear understanding 
+of the repository's organization. 
+
