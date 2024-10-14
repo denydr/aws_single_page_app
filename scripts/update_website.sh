@@ -14,3 +14,7 @@ cd ../website || exit
 aws s3 sync . "s3://$S3_BUCKET"
 
 echo "Website content updated successfully!"
+
+
+
+

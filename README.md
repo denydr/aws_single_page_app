@@ -17,17 +17,8 @@ This solution uses the following AWS services to create a robust, scalable, and 
 - **AWS Certificate Manager (ACM)**: Provisions, manages, and deploys SSL/TLS certificates for use with AWS services when HTTPS is enabled.
 
 ### Infrastructure Diagram
-
-```mermaid
-graph TD
-    A[User] -->|Requests Website| B[Route 53]
-    B -->|DNS Lookup| C[CloudFront]
-    C -->|Serve Content| D[S3 Bucket]
-    C -->|Optional SSL Termination| E[ACM Certificate]
-    D -->|Stores Static Files| F[S3 Website Endpoint]
-    C -->|Routes Traffic| F
-    D -->|Secured in| G[VPC]
-```      
+ 
+![Alt text](/resources/images/aws_diagram_01.png "Title of the image")
 
 ### Project Structure
 
@@ -36,6 +27,7 @@ graph TD
 This project structure organizes the code and resources as follows:  
 
 - `.venv/`: Python virtual environment (if used).  
+- `resources/images/`: Project related images. 
 - `scripts/`: Contains shell scripts for deployment, updates, and teardown.  
 - `terraform/`: Houses all Terraform configurations, including modularized components.  
 - `website/`: Contains the static website files.  

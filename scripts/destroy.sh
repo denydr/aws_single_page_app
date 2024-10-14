@@ -5,3 +5,8 @@ cd terraform || exit
 terraform destroy -auto-approve
 
 echo "Infrastructure destroyed successfully!"
+
+
+
+
+
