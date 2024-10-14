@@ -17,12 +17,44 @@ This solution uses the following AWS services to create a robust, scalable, and 
 - **AWS Certificate Manager (ACM)**: Provisions, manages, and deploys SSL/TLS certificates for use with AWS services when HTTPS is enabled.
 
 ### Infrastructure Diagram
- 
-![Alt text](/resources/images/aws_diagram_01.png "Title of the image")
 
-### Project Structure
+![Alt text](/resources/images/aws_diagram_01.png "Title of the image")  
 
+The process workflow is as follows:  
 
+#### 1. User Requests Website
+- The user initiates a request to access the website.
+
+#### 2. DNS Resolution via Amazon Route 53
+- **Route 53** receives the domain name request and performs DNS lookup.
+- It returns the DNS response, directing the request to the appropriate service, which is **CloudFront**.
+
+#### 3. Amazon CloudFront
+- **CloudFront**, a Content Delivery Network (CDN), receives the request after DNS lookup and serves content from its cache for low-latency delivery or fetches it from the origin (S3).
+- If the request is secure (HTTPS), CloudFront uses **ACM** to provide an SSL certificate for encryption.
+
+#### 4. SSL Termination via ACM (Optional)
+- If SSL is enabled, **AWS Certificate Manager (ACM)** handles SSL termination, ensuring the connection between the user and CloudFront is encrypted.
+- ACM provides the SSL certificate used for securing HTTPS traffic.
+
+#### 5. Content Retrieval from Amazon S3
+- If the content is not cached by CloudFront, it requests the static website files from the **S3 website endpoint**.
+- The **S3 bucket** stores the static website files (HTML, CSS, JS), and returns these files through CloudFront to the user.
+
+#### 6. VPC (Virtual Private Cloud)
+- The diagram shows **S3 website endpoint** and **ACM** within a VPC. However, **S3 itself is publicly accessible**, but traffic to and from internal resources like Lambda or databases would be managed within the **VPC**.
+
+#### 7. Response Returned to the User
+- Once CloudFront retrieves the content (either from cache or from S3), it serves the content back to the user, completing the request.
+
+#### Key Points:
+- **Route 53** directs traffic.
+- **CloudFront** handles content delivery and optional SSL termination.
+- **ACM** provides the SSL certificate if HTTPS is enabled.
+- **S3** stores the static website content.
+- The diagram reflects a secure, scalable architecture for hosting a static website on AWS.
+
+### Project Structure  
 
 This project structure organizes the code and resources as follows:  
 
